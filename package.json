@@ -1,0 +1,48 @@
+{
+  "name": "fragments-postgres",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [
+    "fragments",
+    "postgres",
+    "migrate",
+    "migration"
+  ],
+  "homepage": "http://github.com/snd/fragments-postgres",
+  "author": {
+    "name": "Maximilian Krüger",
+    "email": "kruemaxi@gmail.com",
+    "url": "http://github.com/snd"
+  },
+  "bugs": {
+    "url": "http://github.com/snd/fragments-postgres/issues",
+    "email": "kruemaxi@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/snd/fragments-postgres.git"
+  },
+  "licenses": {
+    "type": "MIT",
+    "url": "git://github.com/snd/fragments-postgres/LICENSE"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "dependencies": {
+    "hinoki": "0.3.0-beta.17",
+    "helfer": "0.1.0",
+    "pg": "4.3.0"
+  },
+  "devDependencies": {
+    "nodeunit": "0.9.1",
+    "coffee-script": "1.9.2"
+  },
+  "scripts": {
+    "compile": "coffee --bare --compile --output lib/ src/",
+    "prepublish": "npm run compile",
+    "pretest": "npm run compile",
+    "test": "nodeunit test/*.coffee"
+  },
+  "main": "lib/fragments-postgres"
+}
