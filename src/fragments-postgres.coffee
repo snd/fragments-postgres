@@ -11,7 +11,7 @@ module.exports = hinoki.source([
   sources.select
   # sources.insert
   # sources.update
-  # sources.delete
+  sources.delete
 ])
 
 module.exports.factoriesSource = factories

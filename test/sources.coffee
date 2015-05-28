@@ -460,60 +460,54 @@ module.exports =
 
     test.done()
 
-#   'newDataDeleteResolver':
-#
-#     'deleteUserWhereIdWhereCreatedAt': (test) ->
-#       test.expect 2
-#       calls =
-#         where: []
-#       table = {}
-#       result = {}
-#       table.where = (arg) ->
-#         calls.where.push arg
-#         table
-#       table.delete = ->
-#         result
-#
-#       container =
-#         values:
-#           userTable: table
-#         resolvers: [forge.newDataDeleteResolver()]
-#
-#       hinoki.get(container, 'deleteUserWhereIdWhereCreatedAt')
-#         .then (accessor) ->
-#           test.equal result, accessor 1, 2
-#           test.deepEqual calls.where, [
-#             {id: 1}
-#             {created_at: 2}
-#           ]
-#           test.done()
-#
-#     'deleteUserWhereIdWhereCreatedAtWithConnection': (test) ->
-#       test.expect 3
-#       calls =
-#         where: []
-#       table = {}
-#       result = {}
-#       connection = {}
-#       table.where = (arg) ->
-#         calls.where.push arg
-#         table
-#       table.setConnection = (arg) ->
-#         test.equal arg, connection
-#         table
-#       table.delete = ->
-#         result
-#
-#       container =
-#         values:
-#           userTable: table
-#         resolvers: [forge.newDataDeleteResolver()]
-#
-#       hinoki.get(container, 'deleteUserWhereIdWhereCreatedAtWithConnection')
-#         .then (accessor) ->
-#           test.equal result, accessor 1, 2, connection
-#           test.deepEqual calls.where, [
-#             {id: 1}
-#             {created_at: 2}
-#           ]
-#           test.done()
+  'delete':
+
+    'deleteUserWhereIdWhereCreatedAt': (test) ->
+      calls =
+        where: []
+      table = {}
+      result = {}
+      table.where = (arg) ->
+        calls.where.push arg
+        table
+      table.delete = ->
+        result
+
+      lifetime =
+        userTable: table
+
+      hinoki(fragmentsPostgres, lifetime, 'deleteUserWhereIdWhereCreatedAt')
+        .then (accessor) ->
+          test.equal result, accessor 1, 2
+          test.deepEqual calls.where, [
+            {id: 1}
+            {created_at: 2}
+          ]
+          test.done()
+
+    'deleteUserWhereIdWhereCreatedAtWithConnection': (test) ->
+      calls =
+        where: []
+      table = {}
+      result = {}
+      connection = {}
+      table.where = (arg) ->
+        calls.where.push arg
+        table
+      table.setConnection = (arg) ->
+        test.equal arg, connection
+        table
+      table.delete = ->
+        result
+
+      lifetime =
+        userTable: table
+
+      hinoki(fragmentsPostgres, lifetime, 'deleteUserWhereIdWhereCreatedAtWithConnection')
+        .then (accessor) ->
+          test.equal result, accessor 1, 2, connection
+          test.deepEqual calls.where, [
+            {id: 1}
+            {created_at: 2}
+          ]
+          test.done()
