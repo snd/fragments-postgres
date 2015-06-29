@@ -32,10 +32,10 @@
   "dependencies": {
     "mesa": "1.0.0-alpha.11",
     "helfer": "0.1.0",
+    "hinoki": "1.0.0-rc.1",
     "pg": "4.4.0"
   },
   "devDependencies": {
-    "hinoki": "1.0.0-rc.1",
     "nodeunit": "0.9.1",
     "coffee-script": "1.9.3"
   },
