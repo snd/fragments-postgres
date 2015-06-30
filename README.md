@@ -50,16 +50,16 @@ pg:migrate [--verbose] [--dry] - migrate: apply all migrations in directory that
 
 ### mesa
 
-key `mesa` gets a [mesa object](https://github.com/snd/mesa) that connects
+`mesa` is a [mesa object](https://github.com/snd/mesa) that connects
 to the database reachable under envvar `DATABASE_URL` using a connection pool
 of size envvar `POSTGRES_POOL_SIZE`.
 
 ### auto generated mesa tables
 
 `userTable` will resolve to a [mesa table](https://github.com/snd/mesa) that is chained from [`mesa`](#mesa) above
-and configured to use table `user`,
-`urlSnapshotTable` is configured to use table `url_snapshot`
-and so on. you get the idea.
+and configured to use table `user`.
+`urlSnapshotTable` is configured to use table `url_snapshot` and so on.
+you get the idea.
 
 ### auto generated data accessor functions
 
