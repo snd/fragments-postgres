@@ -1,7 +1,7 @@
 {
   "name": "fragments-postgres",
-  "version": "1.0.0-beta.1",
-  "description": "postgres for fragments: migration commands, auto generated mesa tables, dao methods and more",
+  "version": "1.0.0-beta.2",
+  "description": "postgres for fragments: migration commands, auto generated mesa tables, data accessor functions and more",
   "keywords": [
     "fragments",
     "postgres",
