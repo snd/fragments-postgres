@@ -20,7 +20,7 @@ module.exports.command_pg_migrate = (
           fragments_shutdown()
         .then ->
           fragments_console.log 'OK'
-module.exports.command_pg_migrate.$help = '[--verbose] [--dry] - migrate'
+module.exports.command_pg_migrate.__help = '[--verbose] [--dry] - migrate: apply all migrations in directory that is in envvar `MIGRATION_PATH` to database whose url is in envvar `DATABASE_URL`'
 
 module.exports.command_migrations_create = (
   fragments_APPLICATION
@@ -52,7 +52,7 @@ module.exports.command_migrations_create = (
           fragments_fs.writeFileAsync(filepath, '')
         .then ->
           fragments_console.log 'OK'
-module.exports.command_migrations_create.$help = '{migration-name}'
+module.exports.command_migrations_create.__help = '{migration-name} - create a new migration in directory that is in envvar `MIGRATION_PATH`'
 
 module.exports.command_pg_create = (
   fragments_APPLICATION
@@ -73,6 +73,7 @@ module.exports.command_pg_create = (
           fragments_shutdown()
         .then ->
           fragments_console.log 'OK'
+module.exports.command_pg_create.__help = '- create database whose name is in envvar `POSTGRES_DATABASE`'
 
 module.exports.command_pg_drop = (
   fragments_APPLICATION
@@ -93,6 +94,7 @@ module.exports.command_pg_drop = (
           fragments_shutdown()
         .then ->
           fragments_console.log 'OK'
+module.exports.command_pg_drop.__help = '- drop database whose name is in envvar `POSTGRES_DATABASE`'
 
 module.exports.command_pg_dropCreate = (
   fragments_APPLICATION
@@ -113,6 +115,7 @@ module.exports.command_pg_dropCreate = (
           fragments_shutdown()
         .then ->
           fragments_console.log 'OK'
+module.exports.command_pg_dropCreate.__help = '- drop and then create database whose name is in in envvar `POSTGRES_DATABASE`'
 
 module.exports.command_pg_dropCreateMigrate = (
   fragments_APPLICATION
@@ -133,3 +136,4 @@ module.exports.command_pg_dropCreateMigrate = (
           fragments_shutdown()
         .then ->
           fragments_console.log 'OK'
+module.exports.command_pg_dropCreateMigrate.__help = '- drop and then create database whose name is in in envvar `POSTGRES_DATABASE` and then apply all migrations in directory that is in envvar `MIGRATION_PATH` to database whose url is in envvar `DATABASE_URL`'
