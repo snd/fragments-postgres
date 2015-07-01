@@ -50,28 +50,33 @@ pg:migrate [--verbose] [--dry] - migrate: apply all migrations in directory that
 
 ### mesa
 
-`mesa` is a [mesa object](https://github.com/snd/mesa) that connects
+key `mesa` maps to a [mesa object](https://github.com/snd/mesa) that connects
 to the database reachable under envvar `DATABASE_URL` using a connection pool
 of size envvar `POSTGRES_POOL_SIZE`.
 
 ### auto generated mesa tables
 
-`userTable` will resolve to a [mesa table](https://github.com/snd/mesa) that is chained from [`mesa`](#mesa) above
-and configured to use table `user`.
-`urlSnapshotTable` is configured to use table `url_snapshot` and so on.
+key `userTable` maps to a [mesa object](https://github.com/snd/mesa)
+that is made from [`mesa`](#mesa) above to use table `user`: `mesa.table('user')`.
+`urlSnapshotTable` uses table `url_snapshot`: `mesa.table('url_snapshot')`.
 you get the idea.
 
 ### auto generated data accessor functions
 
-`firstUserWhereId(id)` returns a promise that will resolve to the first
-record from table `user` where column `id` matches the argument `id`.
+key `firstUserWhereId` maps to a function which
+returns a promise that will resolve to the first
+record from table `user` where column `id` matches the argument `id`
+in the database reachable under envvar `DATABASE_URL`.
+it runs the following mesa query: `userTable.where({id: id}).first()`.
 use any table name or column name. chain multiple where clauses.
 
 `selectUrlSnapshotWhereIsDead(false)` returns a promise that will resolve to all
 records from table `url_snapshot` where column `is_dead` is `false`.
+it runs the following mesa query: `urlSnapshotTable.where({is_dead: false}).select()`.
 use any table name or column name. chain multiple where clauses.
 
 `deleteUserWhereId(id)` works as expected.
+it runs the following mesa query: `userTable.where({id: id}).delete()`.
 use any table name or column name. chain multiple where clauses.
 at least one where clause is required for delete.
 
