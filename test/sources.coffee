@@ -19,9 +19,9 @@ module.exports =
         table
 
       lifetime =
-        mesa: mesa
+        fragments_mesa: mesa
 
-      hinoki(fragmentsPostgres, lifetime, 'userTable')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_userTable')
         .then (result) ->
           test.equal result, table
           test.deepEqual calls.table, ['user']
@@ -37,9 +37,9 @@ module.exports =
         table
 
       lifetime =
-        mesa: mesa
+        fragments_mesa: mesa
 
-      hinoki(fragmentsPostgres, lifetime, 'projectMessageTable')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_projectMessageTable')
         .then (result) ->
           test.equal result, table
           test.deepEqual calls.table, ['project_message']
@@ -49,53 +49,53 @@ module.exports =
 # select
 
   'parseSelect': (test) ->
-    test.ok not fragmentsPostgres.parseSelect('first')
-    test.ok not fragmentsPostgres.parseSelect('firstWithConnection')
-    test.deepEqual fragmentsPostgres.parseSelect('firstUser'),
+    test.ok not fragmentsPostgres.parseSelect('fragments_first')
+    test.ok not fragmentsPostgres.parseSelect('fragments_firstWithConnection')
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_firstUser'),
       type: 'first'
-      name: 'user'
+      table: 'user'
       order: []
       where: []
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseSelect('firstUserWithConnection'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_firstUserWithConnection'),
       type: 'first'
-      name: 'user'
+      table: 'user'
       order: []
       where: []
       withConnection: true
-    test.deepEqual fragmentsPostgres.parseSelect('selectUserCreatedAt'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_selectUserCreatedAt'),
       type: 'select'
-      name: 'userCreatedAt'
+      table: 'user_created_at'
       order: []
       where: []
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseSelect('selectUserCreatedAtWithConnection'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_selectUserCreatedAtWithConnection'),
       type: 'select'
-      name: 'userCreatedAt'
+      table: 'user_created_at'
       order: []
       where: []
       withConnection: true
-    test.deepEqual fragmentsPostgres.parseSelect('firstUserWhereCreatedAt'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_firstUserWhereCreatedAt'),
       type: 'first'
-      name: 'user'
+      table: 'user'
       order: []
       where: ['created_at']
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseSelect('firstUserWhereCreatedAtWithConnection'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_firstUserWhereCreatedAtWithConnection'),
       type: 'first'
-      name: 'user'
+      table: 'user'
       order: []
       where: ['created_at']
       withConnection: true
-    test.deepEqual fragmentsPostgres.parseSelect('selectOrderReportWhereOrderIdWhereCreatedAt'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_selectOrderReportWhereOrderIdWhereCreatedAt'),
       type: 'select'
-      name: 'orderReport'
+      table: 'order_report'
       order: []
       where: ['order_id', 'created_at']
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseSelect('firstOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtDesc'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_firstOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtDesc'),
       type: 'first'
-      name: 'orderReport'
+      table: 'order_report'
       order: [
         {
           column: 'created_at'
@@ -104,9 +104,9 @@ module.exports =
       ]
       where: ['order_id', 'created_at']
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseSelect('firstOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtDescWithConnection'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_firstOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtDescWithConnection'),
       type: 'first'
-      name: 'orderReport'
+      table: 'order_report'
       order: [
         {
           column: 'created_at'
@@ -115,9 +115,9 @@ module.exports =
       ]
       where: ['order_id', 'created_at']
       withConnection: true
-    test.deepEqual fragmentsPostgres.parseSelect('selectOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtOrderByIdDescOrderByReportNumberAsc'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_selectOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtOrderByIdDescOrderByReportNumberAsc'),
       type: 'select'
-      name: 'orderReport'
+      table: 'order_report'
       order: [
         {
           column: 'created_at'
@@ -134,9 +134,9 @@ module.exports =
       ]
       where: ['order_id', 'created_at']
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseSelect('selectOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtOrderByIdDescOrderByReportNumberAscWithConnection'),
+    test.deepEqual fragmentsPostgres.parseSelect('fragments_selectOrderReportWhereOrderIdWhereCreatedAtOrderByCreatedAtOrderByIdDescOrderByReportNumberAscWithConnection'),
       type: 'select'
-      name: 'orderReport'
+      table: 'order_report'
       order: [
         {
           column: 'created_at'
@@ -176,7 +176,7 @@ module.exports =
       lifetime =
         userTable: table
 
-      hinoki(fragmentsPostgres, lifetime, 'firstUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrder')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_firstUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrder')
         .then (accessor) ->
           test.equal result, accessor 1, 2
           test.deepEqual calls.where, [
@@ -208,7 +208,7 @@ module.exports =
       lifetime =
         userTable: table
 
-      hinoki(fragmentsPostgres, lifetime, 'firstUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrderWithConnection')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_firstUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrderWithConnection')
         .then (accessor) ->
           test.equal result, accessor 1, 2, connection
           test.deepEqual calls.where, [
@@ -238,7 +238,7 @@ module.exports =
       lifetime =
         userTable: table
 
-      hinoki(fragmentsPostgres, lifetime, 'selectUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrder')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_selectUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrder')
         .then (accessor) ->
           test.equal result, accessor 1, 2
           test.deepEqual calls.where, [
@@ -270,7 +270,7 @@ module.exports =
       lifetime =
         userTable: table
 
-      hinoki(fragmentsPostgres, lifetime, 'selectUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrderWithConnection')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_selectUserWhereIdWhereCreatedAtOrderByUpdatedAtDescOrderByOrderWithConnection')
         .then (accessor) ->
           test.equal result, accessor 1, 2, connection
           test.deepEqual calls.where, [
@@ -284,16 +284,16 @@ module.exports =
 # insert
 
   'parseInsert': (test) ->
-    test.ok not fragmentsPostgres.parseInsert('insert')
-    test.ok not fragmentsPostgres.parseInsert('insertWithConnection')
-    test.deepEqual fragmentsPostgres.parseInsert('insertOrderReport'),
-      name: 'orderReport'
+    test.ok not fragmentsPostgres.parseInsert('fragments_insert')
+    test.ok not fragmentsPostgres.parseInsert('fragments_insertWithConnection')
+    test.deepEqual fragmentsPostgres.parseInsert('fragments_insertOrderReport'),
+      table: 'order_report'
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseInsert('insertUserWhere'),
-      name: 'userWhere'
+    test.deepEqual fragmentsPostgres.parseInsert('fragments_insertUserWhere'),
+      table: 'user_where'
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseInsert('insertUserWhereWithConnection'),
-      name: 'userWhere'
+    test.deepEqual fragmentsPostgres.parseInsert('fragments_insertUserWhereWithConnection'),
+      table: 'user_where'
       withConnection: true
 
     test.done()
@@ -317,7 +317,7 @@ module.exports =
         userTable: table
         userInsertableColumns: allowedColumns
 
-      hinoki(fragmentsPostgres, lifetime, 'insertUser')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_insertUser')
         .then (accessor) ->
           test.equal result, accessor data
           test.done()
@@ -343,7 +343,7 @@ module.exports =
         userTable: table
         userInsertableColumns: allowedColumns
 
-      hinoki(fragmentsPostgres, lifetime, 'insertUserWithConnection')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_insertUserWithConnection')
         .then (accessor) ->
           test.equal result, accessor data, connection
           test.done()
@@ -352,15 +352,15 @@ module.exports =
 # update
 
   'parseUpdate': (test) ->
-    test.ok not fragmentsPostgres.parseUpdate('update')
-    test.ok not fragmentsPostgres.parseUpdate('updateWithConnection')
-    test.ok not fragmentsPostgres.parseUpdate('updateOrderReport')?
-    test.deepEqual fragmentsPostgres.parseUpdate('updateOrderReportWhereRegistrationNumber'),
-      name: 'orderReport'
+    test.ok not fragmentsPostgres.parseUpdate('fragments_update')
+    test.ok not fragmentsPostgres.parseUpdate('fragments_updateWithConnection')
+    test.ok not fragmentsPostgres.parseUpdate('fragments_updateOrderReport')?
+    test.deepEqual fragmentsPostgres.parseUpdate('fragments_updateOrderReportWhereRegistrationNumber'),
+      table: 'order_report'
       where: ['registration_number']
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseUpdate('updateOrderReportWhereRegistrationNumberWithConnection'),
-      name: 'orderReport'
+    test.deepEqual fragmentsPostgres.parseUpdate('fragments_updateOrderReportWhereRegistrationNumberWithConnection'),
+      table: 'order_report'
       where: ['registration_number']
       withConnection: true
 
@@ -389,7 +389,7 @@ module.exports =
         userTable: table
         userUpdateableColumns: allowedColumns
 
-      hinoki(fragmentsPostgres, lifetime, 'updateUserWhereIdWhereCreatedAt')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_updateUserWhereIdWhereCreatedAt')
         .then (accessor) ->
           test.equal result, accessor data, 1, 2
           test.deepEqual calls.where, [
@@ -424,7 +424,7 @@ module.exports =
         userTable: table
         userUpdateableColumns: allowedColumns
 
-      hinoki(fragmentsPostgres, lifetime, 'updateUserWhereIdWhereCreatedAt')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_updateUserWhereIdWhereCreatedAt')
         .then (accessor) ->
           test.equal result, accessor data, 1, 2, connection
           test.deepEqual calls.where, [
@@ -432,20 +432,20 @@ module.exports =
             {created_at: 2}
           ]
           test.done()
-    #
+
 ###################################################################################
 # delete
 
   'parseDelete': (test) ->
-    test.ok not fragmentsPostgres.parseDelete('delete')
-    test.ok not fragmentsPostgres.parseDelete('deleteWithConnection')
-    test.ok not fragmentsPostgres.parseDelete('deleteOrderReport')?
-    test.deepEqual fragmentsPostgres.parseDelete('deleteOrderReportWhereOrderId'),
-      name: 'orderReport'
+    test.ok not fragmentsPostgres.parseDelete('fragments_delete')
+    test.ok not fragmentsPostgres.parseDelete('fragments_deleteWithConnection')
+    test.ok not fragmentsPostgres.parseDelete('fragments_deleteOrderReport')?
+    test.deepEqual fragmentsPostgres.parseDelete('fragments_deleteOrderReportWhereOrderId'),
+      table: 'order_report'
       where: ['order_id']
       withConnection: false
-    test.deepEqual fragmentsPostgres.parseDelete('deleteOrderReportWhereOrderIdWithConnection'),
-      name: 'orderReport'
+    test.deepEqual fragmentsPostgres.parseDelete('fragments_deleteOrderReportWhereOrderIdWithConnection'),
+      table: 'order_report'
       where: ['order_id']
       withConnection: true
 
@@ -467,7 +467,7 @@ module.exports =
       lifetime =
         userTable: table
 
-      hinoki(fragmentsPostgres, lifetime, 'deleteUserWhereIdWhereCreatedAt')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_deleteUserWhereIdWhereCreatedAt')
         .then (accessor) ->
           test.equal result, accessor 1, 2
           test.deepEqual calls.where, [
@@ -494,7 +494,7 @@ module.exports =
       lifetime =
         userTable: table
 
-      hinoki(fragmentsPostgres, lifetime, 'deleteUserWhereIdWhereCreatedAtWithConnection')
+      hinoki(fragmentsPostgres, lifetime, 'fragments_deleteUserWhereIdWhereCreatedAtWithConnection')
         .then (accessor) ->
           test.equal result, accessor 1, 2, connection
           test.deepEqual calls.where, [
