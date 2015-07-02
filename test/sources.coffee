@@ -298,59 +298,55 @@ module.exports =
 
     test.done()
 
-#   'newDataInsertResolver':
-#
-#     'insertUser': (test) ->
-#       test.expect 3
-#       result = {}
-#       data = {}
-#       allowedColumns = {}
-#       table = {}
-#       table.allow = (arg) ->
-#         test.equal arg, allowedColumns
-#         table
-#       table.insert = (arg) ->
-#         test.equal arg, data
-#         result
-#
-#       container =
-#         values:
-#           userTable: table
-#           userInsertableColumns: allowedColumns
-#         resolvers: [forge.newDataInsertResolver()]
-#
-#       hinoki.get(container, 'insertUser')
-#         .then (accessor) ->
-#           test.equal result, accessor data
-#           test.done()
-#
-#     'insertUserWithConnection': (test) ->
-#       test.expect 4
-#       result = {}
-#       data = {}
-#       allowedColumns = {}
-#       connection = {}
-#       table = {}
-#       table.allow = (arg) ->
-#         test.equal arg, allowedColumns
-#         table
-#       table.insert = (arg) ->
-#         test.equal arg, data
-#         result
-#       table.setConnection = (arg) ->
-#         test.equal arg, connection
-#         table
-#
-#       container =
-#         values:
-#           userTable: table
-#           userInsertableColumns: allowedColumns
-#         resolvers: [forge.newDataInsertResolver()]
-#
-#       hinoki.get(container, 'insertUserWithConnection')
-#         .then (accessor) ->
-#           test.equal result, accessor data, connection
-#           test.done()
+  'insert':
+
+    'insertUser': (test) ->
+      test.expect 3
+      result = {}
+      data = {}
+      allowedColumns = {}
+      table = {}
+      table.allow = (arg) ->
+        test.equal arg, allowedColumns
+        table
+      table.insert = (arg) ->
+        test.equal arg, data
+        result
+
+      lifetime =
+        userTable: table
+        userInsertableColumns: allowedColumns
+
+      hinoki(fragmentsPostgres, lifetime, 'insertUser')
+        .then (accessor) ->
+          test.equal result, accessor data
+          test.done()
+
+    'insertUserWithConnection': (test) ->
+      test.expect 4
+      result = {}
+      data = {}
+      allowedColumns = {}
+      connection = {}
+      table = {}
+      table.allow = (arg) ->
+        test.equal arg, allowedColumns
+        table
+      table.insert = (arg) ->
+        test.equal arg, data
+        result
+      table.setConnection = (arg) ->
+        test.equal arg, connection
+        table
+
+      lifetime =
+        userTable: table
+        userInsertableColumns: allowedColumns
+
+      hinoki(fragmentsPostgres, lifetime, 'insertUserWithConnection')
+        .then (accessor) ->
+          test.equal result, accessor data, connection
+          test.done()
 
 ###################################################################################
 # update
@@ -370,78 +366,73 @@ module.exports =
 
     test.done()
 
-#   'newDataUpdateResolver':
-#
-#     'updateUserWhereIdWhereCreatedAt': (test) ->
-#       test.expect 4
-#       calls =
-#         where: []
-#       result = {}
-#       data = {}
-#       allowedColumns = {}
-#       table = {}
-#       table.where = (arg) ->
-#         calls.where.push arg
-#         table
-#       table.allow = (arg) ->
-#         test.equal arg, allowedColumns
-#         table
-#       table.update = (arg) ->
-#         test.equal arg, data
-#         result
-#
-#       container =
-#         values:
-#           userTable: table
-#           userUpdateableColumns: allowedColumns
-#         resolvers: [forge.newDataUpdateResolver()]
-#
-#       hinoki.get(container, 'updateUserWhereIdWhereCreatedAt')
-#         .then (accessor) ->
-#           test.equal result, accessor data, 1, 2
-#           test.deepEqual calls.where, [
-#             {id: 1}
-#             {created_at: 2}
-#           ]
-#           test.done()
-#
-#     'updateUserWhereIdWhereCreatedAtWithConnection': (test) ->
-#       test.expect 5
-#       calls =
-#         where: []
-#       result = {}
-#       data = {}
-#       allowedColumns = {}
-#       connection = {}
-#       table = {}
-#       table.where = (arg) ->
-#         calls.where.push arg
-#         table
-#       table.allow = (arg) ->
-#         test.equal arg, allowedColumns
-#         table
-#       table.setConnection = (arg) ->
-#         test.equal arg, connection
-#         table
-#       table.update = (arg) ->
-#         test.equal arg, data
-#         result
-#
-#       container =
-#         values:
-#           userTable: table
-#           userUpdateableColumns: allowedColumns
-#         resolvers: [forge.newDataUpdateResolver()]
-#
-#       hinoki.get(container, 'updateUserWhereIdWhereCreatedAtWithConnection')
-#         .then (accessor) ->
-#           test.equal result, accessor data, 1, 2, connection
-#           test.deepEqual calls.where, [
-#             {id: 1}
-#             {created_at: 2}
-#           ]
-#           test.done()
+  'update':
 
+    'updateUserWhereIdWhereCreatedAt': (test) ->
+      calls =
+        where: []
+      result = {}
+      data = {}
+      allowedColumns = {}
+      table = {}
+      table.where = (arg) ->
+        calls.where.push arg
+        table
+      table.allow = (arg) ->
+        test.equal arg, allowedColumns
+        table
+      table.update = (arg) ->
+        test.equal arg, data
+        result
+
+      lifetime =
+        userTable: table
+        userUpdateableColumns: allowedColumns
+
+      hinoki(fragmentsPostgres, lifetime, 'updateUserWhereIdWhereCreatedAt')
+        .then (accessor) ->
+          test.equal result, accessor data, 1, 2
+          test.deepEqual calls.where, [
+            {id: 1}
+            {created_at: 2}
+          ]
+          test.done()
+
+
+    'updateUserWhereIdWhereCreatedAtWithConnection': (test) ->
+      calls =
+        where: []
+      result = {}
+      data = {}
+      allowedColumns = {}
+      connection = {}
+      table = {}
+      table.where = (arg) ->
+        calls.where.push arg
+        table
+      table.allow = (arg) ->
+        test.equal arg, allowedColumns
+        table
+      table.setConnection = (arg) ->
+        test.equal arg, connection
+        table
+      table.update = (arg) ->
+        test.equal arg, data
+        result
+
+      lifetime =
+        userTable: table
+        userUpdateableColumns: allowedColumns
+
+      hinoki(fragmentsPostgres, lifetime, 'updateUserWhereIdWhereCreatedAt')
+        .then (accessor) ->
+          test.equal result, accessor data, 1, 2, connection
+          test.deepEqual calls.where, [
+            {id: 1}
+            {created_at: 2}
+          ]
+          test.done()
+    #
 ###################################################################################
 # delete
 

@@ -9,8 +9,8 @@ module.exports = hinoki.source([
   sources.table
   sources.selectFirst
   sources.select
-  # sources.insert
-  # sources.update
+  sources.insert
+  sources.update
   sources.delete
 ])
 
