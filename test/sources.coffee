@@ -19,7 +19,7 @@ module.exports =
         table
 
       lifetime =
-        fragments_mesa: mesa
+        mesa: mesa
 
       hinoki(fragmentsPostgres, lifetime, 'fragments_userTable')
         .then (result) ->
@@ -37,7 +37,7 @@ module.exports =
         table
 
       lifetime =
-        fragments_mesa: mesa
+        mesa: mesa
 
       hinoki(fragmentsPostgres, lifetime, 'fragments_projectMessageTable')
         .then (result) ->
