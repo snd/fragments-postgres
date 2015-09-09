@@ -32,7 +32,7 @@
   "dependencies": {
     "mesa": "1.0.0-alpha.11",
     "helfer": "0.1.0",
-    "hinoki": "1.0.0-rc.3",
+    "hinoki": "1.0.0-rc.5",
     "pg": "4.4.1",
     "moment": "2.10.6"
   },
