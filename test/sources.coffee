@@ -1,7 +1,7 @@
 test = require 'tape'
 hinoki = require 'hinoki'
 
-fragmentsPostgres = require '../src/fragments-postgres'
+fragmentsPostgres = require '../lib/fragments-postgres'
 
 ###################################################################################
 # table
