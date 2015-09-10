@@ -5,6 +5,7 @@ node_js:
     - "iojs-3"
     - "4.0"
 script: npm run $NPM_COMMAND
+sudo: false
 env:
   matrix:
     - NPM_COMMAND=test
