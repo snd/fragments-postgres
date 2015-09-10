@@ -32,19 +32,23 @@
   "dependencies": {
     "mesa": "1.0.0-alpha.11",
     "helfer": "0.1.0",
-    "hinoki": "1.0.0-rc.5",
+    "hinoki": "1.0.0-rc.6",
     "pg": "4.4.1",
     "moment": "2.10.6"
   },
   "devDependencies": {
-    "nodeunit": "0.9.1",
-    "coffee-script": "1.9.3"
+    "codecov.io": "0.1.6",
+    "coffee-script": "1.10.0",
+    "tape": "4.2.0",
+    "coffeetape": "1.0.1",
+    "istanbul": "0.3.19"
   },
   "scripts": {
     "compile": "coffee --bare --compile --output lib/ src/",
     "prepublish": "npm run compile",
     "pretest": "npm run compile",
-    "test": "nodeunit test/*.coffee"
+    "test": "coffeetape test/*",
+    "test-with-coverage": "istanbul cover coffeetape test/* && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js"
   },
   "main": "lib/fragments-postgres"
 }
