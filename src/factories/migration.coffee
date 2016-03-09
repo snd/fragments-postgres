@@ -56,7 +56,7 @@ module.exports.fragments_selectMigrations = (
 ) ->
   ->
     fragments_mesa.table('schema_info').find().then (schemaInfo) ->
-      fragments_lodash.pluck schemaInfo, 'migration'
+      fragments_lodash.map schemaInfo, 'migration'
 
 module.exports.fragments_applyMigration = (
   mesa
